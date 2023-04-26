@@ -1,21 +1,28 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx-deployment #unique deployment name
   labels:
-    app: nginx 
+    app: nginx #label can be similar
+#this is the specification of your deployment
 spec:
-  replicas: 3
-  selector:
+  replicas: 3 #replica as three 
+  selector: #but how the deployment is going to manage all this three pod
+  ##to manage all this three pod .selecto match lables which is like map of key and value pairs
     matchLabels:
       app: nginx 
+      ###the above 4 lines are how deployment is going to map all the three pod with labels
+###all this three pod we will create a template and apply this template to all the three pod
   template:
     metadata:
       labels:
-        app: nginx 
-    spec:
+        app: nginx #same label we defineing so that template can be integrated with pod
+    spec: ##we are deploying container
       containers:
       - name: nginx 
         image: nginx:1.14.2 
+        #3by default it will try to repo hub.docker.com and quayo.io
+        ###from private repo
+        #image: https://192.168.10.11/v2/nginx:1.14.2 
         ports:
         - containerPort: 80
