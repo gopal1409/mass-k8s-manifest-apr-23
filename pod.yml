@@ -1,10 +1,17 @@
+###3we know that all the communication to your k8s cluster happening through api
+##to create a pod pod api version is
 apiVersion: v1
-kind: Pod 
+##3what we want to create we want to deploy our container image in kubernetes
+kind: Pod ##service configmap secret deployment
+##3pod is the common api name
 metadata:
-  name: nginx 
+  name: nginx ##using metadata we are telling k8s to create a pod 
+  ###name nginx it will create a pod with the name nginx
+  ###inside my pod i need to run a container##providing the defination using spec
 spec:
-  containers:
-    - name: nginx 
-      image: nginx:1.14.2 
-      ports:
+  containers: ###we are creating a container
+    - name: nginx ##this is the name of the container
+      image: nginx:1.14.2 ###image of the container
+      ports: ###the container port it comes from where
+      ###dockerfile expose which is poiting to application port
         - containerPort: 80
