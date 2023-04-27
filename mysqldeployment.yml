@@ -33,10 +33,10 @@ spec:
             mountPath: /docker-entrypoint-initdb.d
         ports:
         - containerPort: 3306
-    volume:
-      - name: storage 
-        persistentVolumeClaim:
-          claimName: task-pv-claim
-      - name: configuration
-        configmap:
-          name: userdb-creation-script
+      volume:
+        - name: storage 
+          persistentVolumeClaim:
+            claimName: task-pv-claim
+        - name: configuration
+          configmap:
+            name: userdb-creation-script
