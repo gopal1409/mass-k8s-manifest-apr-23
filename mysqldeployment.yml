@@ -23,5 +23,20 @@ spec:
               secretKeyRef:
                 name: mysql-db-password
                 key: password
+        ##3this is the volume mount point inside my container
+        volumeMounts:
+          - name: storage 
+            mountPath: /var/lib/mysql
+            ###config map can store 1MB of data it is like a volume
+            #this is the path inside your container
+          - name: configuration
+            mountPath: /docker-entrypoint-initdb.d
         ports:
         - containerPort: 3306
+  volume:
+    - name: storage 
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+    - name: configuration
+      configmap:
+        name: userdb-creation-script
