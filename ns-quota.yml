@@ -1,0 +1,14 @@
+apiVersion: v1 
+kind: ResourceQuota 
+metadata:
+  name: comput-resources
+spec:
+  hard:
+    requests.cpu: "1" #inside this ns none of the pod can consume more than 1 core processoir
+    requests.memory: 1Gi 
+    limit.cpu: "2" #inside this namespace all the pod can have max 2 core process
+    limit.memory: 2Gi 
+    pods: "4"
+    secret: "10"
+    services: "10"
+    configmaps: "10"
