@@ -1,42 +1,39 @@
-apiVersion: apps/v1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: mysql 
-  labels:
-    app: mysql 
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
+  name: myapp-mysql
+spec: 
+  replicas: 1 
+  selector:  
+    matchLabels: 
       app: mysql 
+  strategy:
+    type: Recreate 
   template:
     metadata:
       labels:
-        app: mysql 
-    spec:
+        app: mysql
+    spec: #this spec if related to your container
       containers:
       - name: mysql 
         image: mysql:5.6
-        env: 
-          - name: MYSQL_ROOT_PASSWORD
+        env:
+          - name: MYSQL_ROOT_PASSWORD 
             valueFrom:
               secretKeyRef:
-                name: mysql-db-password
-                key: password
-        ##3this is the volume mount point inside my container
-        volumeMounts:
-          - name: storage 
-            mountPath: /var/lib/mysql
-            ###config map can store 1MB of data it is like a volume
-            #this is the path inside your container
-          - name: configuration
-            mountPath: /docker-entrypoint-initdb.d
+                name: my-db-secret 
+                key: password        
         ports:
         - containerPort: 3306
-    volumes:
-        - name: storage 
+        volumeMounts:
+          - name: mysql-persistent-volume
+            mountPath: /var/lib/mysql
+          - name: usermgmt-dbscript 
+            mountPath: /docker-entrypoint-initdb.d
+      volumes: 
+        - name: mysql-persistent-volume
           persistentVolumeClaim:
-            claimName: task-pv-claim
-        - name: configuration
-          configmap:
+            claimName: task-pv-claim 
+        - name: usermgmt-dbscript
+          configMap:
             name: userdb-creation-script
