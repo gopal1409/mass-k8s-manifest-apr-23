@@ -5,7 +5,7 @@ metadata:
 spec:
   
   template:
-    backoffLimit: 2
+   
     spec:
       containers:
       - name: node-app-job 
@@ -13,3 +13,4 @@ spec:
         command: ["ls","/data"]
         ##if the node get restarted or update your k8s cluster 
       restartPolicy: Never
+  backoffLimit: 2
