@@ -4,7 +4,7 @@ metadata:
   name: node-app-job
 spec:
   completions: 2
-  parellelism: 2
+  parallelism: 2
   template:
   
     spec:
