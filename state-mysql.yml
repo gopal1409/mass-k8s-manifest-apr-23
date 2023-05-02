@@ -9,11 +9,12 @@ spec:
       app: mysql 
   
   template:
-    terminationGracePeriodSeconds: 10
+    
     metadata:
       labels:
         app: mysql
     spec: #this spec if related to your container
+      terminationGracePeriodSeconds: 10
       containers:
       - name: mysql 
         image: mysql:5.6
