@@ -3,8 +3,10 @@ kind: Job
 metadata:
   name: node-app-job
 spec:
-  
+ 
   template:
+    completions: 2
+    parellelism: 2
     spec:
       containers:
       - name: node-app-job 
