@@ -1,0 +1,39 @@
+apiVersion: apps/v1 
+kind: Statefulset
+metadata:
+  name: mysql-state
+spec: 
+  replicas: 3 
+  selector:  
+    matchLabels: 
+      app: mysql 
+  
+  template:
+    terminationGracePeriodSeconds: 10
+    metadata:
+      labels:
+        app: mysql
+    spec: #this spec if related to your container
+      containers:
+      - name: mysql 
+        image: mysql:5.6
+        env:
+          - name: MYSQL_ROOT_PASSWORD 
+            valueFrom:
+              secretKeyRef:
+                name: mysql-password
+                key: password        
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+          - name: mysql-persistent-volume
+            mountPath: /var/lib/mysql
+          - name: usermgmt-dbscript 
+            mountPath: /docker-entrypoint-initdb.d
+      volumes: 
+        - name: mysql-persistent-volume
+          persistentVolumeClaim:
+            claimName: task-pv-claim-state
+        - name: usermgmt-dbscript
+          configMap:
+            name: userdb-creation-script
