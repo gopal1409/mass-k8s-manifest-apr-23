@@ -10,7 +10,8 @@ spec:
       containers:
       - name: node-app-job 
         image: alpine 
-        command: ["ls","/data"]
+        command: ["sleep","40"]
         ##if the node get restarted or update your k8s cluster 
       restartPolicy: Never
-  backoffLimit: 2
+  activeDeadlineSeconds: 15
+
