@@ -3,14 +3,13 @@ kind: Job
 metadata:
   name: node-app-job
 spec:
-  completions: 2
-  parallelism: 2
+  
   template:
   
     spec:
       containers:
       - name: node-app-job 
         image: alpine 
-        command: ["echo","welcome to my node app"]
+        command: ["ls","/data"]
         ##if the node get restarted or update your k8s cluster 
       restartPolicy: Never
