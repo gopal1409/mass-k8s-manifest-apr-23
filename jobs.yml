@@ -5,7 +5,7 @@ metadata:
 spec:
   
   template:
-  
+    backoffLimit: 2
     spec:
       containers:
       - name: node-app-job 
