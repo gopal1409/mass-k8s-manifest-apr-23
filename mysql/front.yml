@@ -16,10 +16,7 @@ spec:
     spec:
     #i want to deploy my front end pod
     #before i deploy my frontend i want to ensure the connectivity to my database them only it should deploy my frontend. 
-      initContainers:
-        - name: init-db
-          image: busybox #using this i can run shell script. 
-          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']  
+      
       containers:
         - name: usermgmt-webapp
           image: stacksimplify/kube-usermgmt-webapp
